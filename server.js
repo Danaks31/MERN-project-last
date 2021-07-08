@@ -1,10 +1,22 @@
 // Permet de récuperer le dossier .env
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
-
+const cors = require("cors");
 // Import de express
 const express = require("express");
 const app = express();
+
+// ===== CORS ====
+// Seulement la partie client de notre site pourras requêter, sinon n'importe qui peut le faire
+const corsdOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+app.use(cors(corsdOptions));
 // cookieParser permet de lire les cookies
 const cookieParser = require("cookie-parser");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
