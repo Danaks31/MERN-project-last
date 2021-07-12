@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       max: 1024,
     },
-    pucture: {
+    picture: {
       type: String,
       default: "./uploads/profil/random-user.png",
     },
