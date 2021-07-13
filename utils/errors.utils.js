@@ -25,14 +25,15 @@ module.exports.signUpErrors = (err) => {
 
 module.exports.signInErrors = (err) => {
   let errors = {
-    errorMessage: "",
+    email: "",
+    password: "",
   };
 
-  if (err.message.includes("email") || err.message.includes("password"))
-    errors.errorMessage = "Email Inconnus ou mauvais mot de passe";
+  if (err.message.includes("email"))
+    errors.email = "Email Inconnus ou mauvais mot de passe";
 
-  //   if (err.message.includes("password"))
-  //     errors.password = "Le mot de passe ne corréspond pas";
+  if (err.message.includes("password"))
+    errors.password = "Le mot de passe ne corréspond pas";
   return errors;
 };
 

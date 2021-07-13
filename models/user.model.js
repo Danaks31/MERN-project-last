@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       max: 1024,
-      minlenght: 5,
+      minlength: 5,
     },
     bio: {
       type: String,

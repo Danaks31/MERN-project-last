@@ -8,7 +8,7 @@ const app = express();
 
 // ===== CORS ====
 // Seulement la partie client de notre site pourras requêter, sinon n'importe qui peut le faire
-const corsdOptions = {
+const corsOptions = {
   origin: process.env.CLIENT_URL,
   credentials: true,
   allowedHeaders: ["sessionId", "Content-Type"],
@@ -16,7 +16,7 @@ const corsdOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
 };
-app.use(cors(corsdOptions));
+app.use(cors(corsOptions));
 // cookieParser permet de lire les cookies
 const cookieParser = require("cookie-parser");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
