@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import Log from "../components/Log";
 import { UidContext } from "../components/AppContext";
+import UpdateProfil from "../components/Profil/UpdateProfil";
 
 const Profil = () => {
   // De cette maniere on va récuperer la value du context qui est ici l'id de l'utilisateur connecter
@@ -9,7 +10,7 @@ const Profil = () => {
   return (
     <div className="profil-page">
       {uid ? (
-        <h1>Test</h1>
+        <UpdateProfil />
       ) : (
         <div className="log-container">
           {/* Grâce à la props showSignInModal on affiche le form login, ou le form signUp  */}

@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import Routes from "../src/components/Routes";
 import { UidContext } from "./components/AppContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getUser } from "./actions/user.actions";
 
 const App = () => {
   const [uid, setUid] = useState(null);
+  // On créé un dispatch pour redux afin d'envoyer les informations
+  const dispatch = useDispatch();
 
   // A chaque fois que l'on va appeller le component ( à chaque changement de page, au premier rendu etc), le useEffect va se lire
   useEffect(() => {
@@ -22,6 +26,8 @@ const App = () => {
         .catch((err) => console.log("No token"));
     };
     fetchToken();
+
+    if (uid) dispatch(getUser(uid));
   }, [uid]);
 
   return (
