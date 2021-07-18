@@ -1,3 +1,4 @@
+// INDEX est la file la plus haute de notre app
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.scss";
@@ -11,6 +12,7 @@ import thunk from "redux-thunk";
 // Contient tout les reducer
 import rootReducer from "./reducers";
 
+import { getUsers } from "./actions/users.actions";
 // Dev tools pour redux
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
@@ -20,6 +22,10 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk, logger))
 );
+
+// Dés que notre application se lance, on recupere tout les user
+store.dispatch(getUsers());
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
