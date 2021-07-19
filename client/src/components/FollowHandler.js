@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { followUser, unfollowUser } from "../actions/user.actions";
 import { isEmpty } from "./Utils";
 
-const FollowHandler = ({ idToFollow }) => {
+// Le type va nous permettre de faire un affichage conditionnelle, sur la page d'accueil ou dans le profil
+const FollowHandler = ({ idToFollow, type }) => {
   // On recupere les data du suer connecter via le reducer
   const userData = useSelector((state) => state.userReducer);
   const [isFollowed, setIsFollowed] = useState(false);
@@ -33,17 +34,21 @@ const FollowHandler = ({ idToFollow }) => {
   return (
     <>
       {isFollowed && !isEmpty(userData) && (
-        <span>
-          <button onClick={handleUnfollow} className="unfollow-btn">
-            Abonné
-          </button>
+        <span onClick={handleFollow}>
+          {type === "suggestion" && (
+            <button className="unfollow-btn">Abonné</button>
+          )}
+          {type === "card" && (
+            <img src="./img/icons/checked.svg" alt="checked" />
+          )}
         </span>
       )}
       {isFollowed === false && !isEmpty(userData) && (
-        <span>
-          <button onClick={handleFollow} className="follow-btn">
-            Suivre
-          </button>
+        <span onClick={handleFollow}>
+          {type === "suggestion" && (
+            <button className="follow-btn">Suivre</button>
+          )}
+          {type === "card" && <img src="./img/icons/check.svg" alt="check" />}
         </span>
       )}
     </>
