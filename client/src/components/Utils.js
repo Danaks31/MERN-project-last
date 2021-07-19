@@ -15,3 +15,13 @@ export const dateParser = (num) => {
 
   return date.toString();
 };
+
+// Re créé le fonctionnement de IsEmpty PhP en js ( Si l'une de ces conditions est vrai, return true )
+export const isEmpty = (value) => {
+  return (
+    value === undefined ||
+    value === null ||
+    (typeof value === "object" && Object.keys(value).length === 0) ||
+    (typeof value === "string" && value.trim().length === 0)
+  );
+};
