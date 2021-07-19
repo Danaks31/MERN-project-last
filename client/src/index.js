@@ -16,6 +16,7 @@ import { getUsers } from "./actions/users.actions";
 // Dev tools pour redux
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
+import { getPosts } from "./actions/post.actions";
 
 const store = createStore(
   // composeWithDevTools applique l'outil de notre choix au moment du dev par ex :
@@ -25,6 +26,7 @@ const store = createStore(
 
 // Dés que notre application se lance, on recupere tout les user
 store.dispatch(getUsers());
+store.dispatch(getPosts());
 
 ReactDOM.render(
   <Provider store={store}>
