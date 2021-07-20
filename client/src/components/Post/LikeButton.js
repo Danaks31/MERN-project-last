@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 // ReactJs Popup est un bibliotheque pour généré un popup au clic
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { likePost } from "../../actions/post.actions";
+import { likePost, unlikePost } from "../../actions/post.actions";
 
 const LikeButton = ({ post }) => {
   const [liked, setLiked] = useState(false);
@@ -18,6 +18,7 @@ const LikeButton = ({ post }) => {
   useEffect(() => {
     //  Si le tableau de like du post contient l'id de l'utilsateur connecter
     if (post.likers.includes(uid)) setLiked(true);
+    else setLiked(false);
   }, [uid, post.likers, liked]);
 
   const like = () => {
@@ -25,7 +26,10 @@ const LikeButton = ({ post }) => {
     setLiked(true);
   };
 
-  const unlike = () => {};
+  const unlike = () => {
+    dispatch(unlikePost(post._id, uid));
+    setLiked(false);
+  };
 
   return (
     <div className="like-container">

@@ -58,6 +58,7 @@ const Card = ({ post }) => {
             )}
             {post.video && (
               <iframe
+                title={post._id}
                 width="500"
                 height="300"
                 src={post.video}
@@ -71,7 +72,11 @@ const Card = ({ post }) => {
                 <img src="./img/icons/message1.svg" alt="comment" />
                 <span>{post.comments.length}</span>
               </div>
-              <LikeButton post={post} />
+              <div className="like-container">
+                <LikeButton post={post} />
+                <span>{post.likers.length}</span>
+              </div>
+
               <img src="./img/icons/share.svg" alt="share" />
             </div>
           </div>
