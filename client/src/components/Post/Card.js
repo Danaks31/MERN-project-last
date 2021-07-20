@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import FollowHandler from "../FollowHandler";
 import { dateParser, isEmpty } from "../Utils";
+import LikeButton from "./LikeButton";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +45,7 @@ const Card = ({ post }) => {
                       if (user._id === post.posterId) return user.pseudo; // On vérifie a chaque boucle que le user._id corresponde posterId
                     })}
                 </h3>
+                {/* Permet de ne pas afficher la bouton like sur les post de la personne connecter */}
                 {post.posterId !== userData._id && (
                   <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
@@ -54,6 +56,24 @@ const Card = ({ post }) => {
             {post.picture && (
               <img src={post.picture} alt="card-pic" className="card-pic" />
             )}
+            {post.video && (
+              <iframe
+                width="500"
+                height="300"
+                src={post.video}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+            <div className="card-footer">
+              <div className="comment-icon">
+                <img src="./img/icons/message1.svg" alt="comment" />
+                <span>{post.comments.length}</span>
+              </div>
+              <LikeButton post={post} />
+              <img src="./img/icons/share.svg" alt="share" />
+            </div>
           </div>
         </>
       )}
