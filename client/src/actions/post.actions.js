@@ -5,14 +5,16 @@ export const GET_POSTS = "GET_POSTS";
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 
-export const getPosts = () => {
+export const getPosts = (num) => {
   return (dispatch) => {
     return axios({
       method: "get",
       url: `${process.env.REACT_APP_API_URL}api/post`,
     })
       .then((res) => {
-        dispatch({ type: GET_POSTS, payload: res.data });
+        // On créé un tableaux qui va contenir de 0 à {num} post, num étant de +5 à chaque fin de scroll (Thread.js)
+        const array = res.data.slice(0, num);
+        dispatch({ type: GET_POSTS, payload: array });
       })
       .catch((err) => console.log(err));
   };
