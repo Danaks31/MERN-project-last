@@ -31,7 +31,7 @@ const Thread = () => {
 
     window.addEventListener("scroll", loadMore);
     return () => window.removeEventListener("scroll", loadMore);
-  }, [loadPost, dispatch]);
+  }, [loadPost, dispatch, count]);
 
   const postsData = useSelector((state) => state.postReducer);
 

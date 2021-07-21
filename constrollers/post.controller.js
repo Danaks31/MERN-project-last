@@ -27,9 +27,8 @@ module.exports.createPost = async (req, res) => {
 };
 
 module.exports.updatePost = (req, res) => {
-  // On vérifie si l'id éxiste
   if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknow : " + req.params.id);
+    return res.status(400).send("ID unknown : " + req.params.id);
 
   const updatedRecord = {
     message: req.body.message,
@@ -41,7 +40,7 @@ module.exports.updatePost = (req, res) => {
     { new: true },
     (err, docs) => {
       if (!err) res.send(docs);
-      else console.log("upadate error : " + err);
+      else console.log("Update error : " + err);
     }
   );
 };

@@ -33,7 +33,7 @@ const FollowHandler = ({ idToFollow, type }) => {
   return (
     <>
       {isFollowed && !isEmpty(userData) && (
-        <span onClick={handleFollow}>
+        <span onClick={handleUnfollow}>
           {type === "suggestion" && (
             <button className="unfollow-btn">Abonné</button>
           )}
