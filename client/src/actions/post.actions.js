@@ -89,14 +89,14 @@ export const deletePost = (postId) => {
 
 export const addComment = (postId, commenterId, text, commenterPseudo) => {
   return (dispatch) => {
+    dispatch({ type: ADD_COMMENT, payload: { postId } });
+    console.log("Post-Action après dispatch OK");
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/comment-post/${postId}`,
       data: { commenterId, text, commenterPseudo },
     })
-      .then((res) => {
-        dispatch({ type: ADD_COMMENT, payload: { postId } });
-      })
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 };
