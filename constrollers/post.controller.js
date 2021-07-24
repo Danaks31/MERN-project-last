@@ -121,7 +121,9 @@ module.exports.commentPost = async (req, res) => {
     return res.status(400).send("ID unknow : " + req.params.id);
 
   try {
-    return PostModel.findByIdAndUpdate(
+    // console.log("req.params", req.params);
+    // console.log("req.body", req.body);
+    const docs = await PostModel.findByIdAndUpdate(
       req.params.id,
       {
         $push: {
@@ -133,12 +135,10 @@ module.exports.commentPost = async (req, res) => {
           },
         },
       },
-      { new: true },
-      (err, docs) => {
-        if (!err) return res.send(docs);
-        else return res.status(400).send(err);
-      }
+      { new: true }
     );
+
+    return res.send(docs);
   } catch (err) {
     return res.status(400).send(err);
   }
@@ -174,6 +174,8 @@ module.exports.deleteCommentPost = async (req, res) => {
   try {
     return PostModel.findOneAndUpdate(
       req.params.id,
+      console.log("PostId", req.params.id),
+      console.log("commentId", req.body.commentId),
       {
         $pull: {
           comments: {
@@ -183,8 +185,9 @@ module.exports.deleteCommentPost = async (req, res) => {
       },
       { new: true },
       (err, docs) => {
+        console.log(docs);
         if (!err) return res.status(200).send(docs);
-        return res.status(400).send(err);
+        return res.status(400).console.log(err);
       }
     );
   } catch (err) {

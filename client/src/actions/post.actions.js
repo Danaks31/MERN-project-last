@@ -6,6 +6,8 @@ export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
+export const EDIT_COMMENT = "EDIT_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
 
 // comments
 export const ADD_COMMENT = "ADD_COMMENT";
@@ -90,7 +92,6 @@ export const deletePost = (postId) => {
 export const addComment = (postId, commenterId, text, commenterPseudo) => {
   return (dispatch) => {
     dispatch({ type: ADD_COMMENT, payload: { postId } });
-    console.log("Post-Action après dispatch OK");
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/comment-post/${postId}`,
@@ -98,5 +99,39 @@ export const addComment = (postId, commenterId, text, commenterPseudo) => {
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+  };
+};
+
+export const editComment = (postId, commentId, text) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/post/edit-comment-post/${postId}`,
+      data: { commentId, text },
+    })
+      .then((res) => {
+        dispatch({ type: EDIT_COMMENT, payload: { postId, commentId, text } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const deleteComment = (postId, commentId) => {
+  console.log("deleteComment avant dispatch");
+  return (dispatch) => {
+    console.log("deleteComment après dispatch");
+    console.log("postId", postId);
+    console.log("commentId", commentId);
+
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/post/delete-comment-post/${postId}`,
+      data: { commentId },
+    })
+      .then((res) => {
+        console.log("Réponse", res);
+        dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
+      })
+      .catch((err) => console.log("Erreur deleteComment post.actions", err));
   };
 };
